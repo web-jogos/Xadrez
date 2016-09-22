@@ -22,6 +22,7 @@ function Tabuleiro(context, x, y, largura, altura, num_colunas,
   this.col_labels = "ABCDEFGH";
   this.lin_labels = "87654321";
   this.criarTiles();
+  this.clickNoTabuleiro();
 }
 
 Tabuleiro.prototype.criarTiles = function(){
@@ -29,13 +30,44 @@ Tabuleiro.prototype.criarTiles = function(){
   for(var i = 0; i < this.num_colunas; i++){
     for(var j = 0; j < this.num_colunas; j++){
       var tipo_tile = this._get_tipo_tile(i, j);
+      var label = this._get_label(i, j);
       this.tiles.push(new tipo_tile(this.context,
+        label,
         this.x + (i * this.tamanho_coluna),
         this.y + (j * this.tamanho_coluna),
         this.tamanho_coluna));
     }
   }
 }
+
+Tabuleiro.prototype._get_label = function(i, j){
+  return this.col_labels[i] + this.lin_labels[j];
+}
+
+Tabuleiro.prototype.clickNoTabuleiro = function(){
+  var canvas = this.context.canvas;
+  var that = this;
+  $(canvas).click(function(event){
+    var x = event.pageX - this.offsetLeft;
+    var y = event.pageY - this.offsetTop;
+    var tile = that.getTile(x, y);
+    if(tile !== undefined){
+      var clickData = {tile: tile, x: x, y: y};
+      $(that).trigger({type: 'tabuleiro:click',
+       clickData: clickData});
+     }
+  });
+}
+
+Tabuleiro.prototype.getTile = function(x, y){
+  var coords = {x: x, y: y};
+  for(var i in this.tiles){
+    if(this.tiles[i].contains(coords)){
+      return this.tiles[i];
+    }
+  }
+}
+
 
 Tabuleiro.prototype._get_tipo_tile = function(i, j){
   if((i + j) % 2 == 0){

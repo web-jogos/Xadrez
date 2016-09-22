@@ -28,3 +28,7 @@ var tabuleiro = new Tabuleiro(context, 0, 0,
   LARGURA_BORDA);
 
 tabuleiro.desenhar();
+
+$(tabuleiro).on('tabuleiro:click', function(event){
+  console.log(event.clickData.tile);
+});
