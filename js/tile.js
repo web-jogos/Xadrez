@@ -63,4 +63,4 @@ function TilePreto(context, label, x, y, tamanho){
 }
 
 TilePreto.prototype = Object.create(Tile.prototype);
-TileBranco.prototype.constructor = TilePreto;
+TilePreto.prototype.constructor = TilePreto;
