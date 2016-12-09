@@ -10,7 +10,7 @@
 var COR_BORDA = "rgb(139,69,19)";
 
 function Tabuleiro(context, x, y, largura, altura, num_colunas,
-                  borda){
+                  borda, pecas_sprites){
   this.context = context;
   this.x = x + borda;
   this.y = y + borda;
@@ -21,6 +21,7 @@ function Tabuleiro(context, x, y, largura, altura, num_colunas,
   this.tamanho_coluna = (largura - x)  / 8;
   this.col_labels = "ABCDEFGH";
   this.lin_labels = "87654321";
+  this.pecas_sprites = pecas_sprites;
   this.criarTiles();
   this.clickNoTabuleiro();
 }
@@ -36,6 +37,7 @@ Tabuleiro.prototype.criarTiles = function(){
         this.x + (i * this.tamanho_coluna),
         this.y + (j * this.tamanho_coluna),
         this.tamanho_coluna));
+      this.tiles[this.tiles.length - 1].sprite = this.pecas_sprites.brancas.rei;
     }
   }
 }

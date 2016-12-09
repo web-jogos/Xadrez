@@ -48,6 +48,11 @@ Tile.prototype.desenhar = function(){
   ctx.beginPath();
   ctx.fillStyle = grd;
   ctx.fillRect(this.x,this.y,this.tamanho,this.tamanho);
+
+  var sprite = this.sprite;
+  ctx.drawImage(sprite.imagem,
+  sprite.x, sprite.y,sprite.largura, sprite.altura,
+    this.x, this.y, this.tamanho, this.tamanho);
   ctx.restore();
 };
 
